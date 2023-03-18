@@ -1,27 +1,21 @@
 //your code here
-const bandNames = ['The Beatles', 'Led Zeppelin', 'Pink Floyd', 'The Who', 'Aerosmith', 'Rolling Stones', 'Queen', 'Anthrax', 'Black Sabbath'];
+let bandNames = ['The Beatles', 'Aerosmith', 'Led Zeppelin', 'The Who', 'The Rolling Stones', 'Pink Floyd'];
 
-		function sortBands(bands) {
-			const articles = ['the', 'a', 'an'];
-			const sortedBands = bands.sort(function(a, b) {
-				const nameA = a.toLowerCase().replace(/^(the|an|a)\s+/, '');
-				const nameB = b.toLowerCase().replace(/^(the|an|a)\s+/, '');
-				if (nameA < nameB) {
-					return -1;
-				}
-				if (nameA > nameB) {
-					return 1;
-				}
-				return 0;
-			});
-			return sortedBands;
-		}
+// Function to strip articles from band names
+function stripArticles(name) {
+  return name.replace(/^(a|an|the)\s/i, '');
+}
 
-		const sortedBands = sortBands(bandNames);
+// Sorting the band names in lexicographic order excluding articles
+bandNames.sort((a, b) => stripArticles(a) > stripArticles(b) ? 1 : -1);
 
-		const bandList = document.getElementById("band");
-		sortedBands.forEach(function(band) {
-			const li = document.createElement("li");
-			li.appendChild(document.createTextNode(band));
-			bandList.appendChild(li);
-		});
+// Getting the ul element by its ID
+let bandList = document.getElementById('band');
+
+// Looping over the sorted band names and adding them as li elements to the ul
+for (let i = 0; i < bandNames.length; i++) {
+  let listItem = document.createElement('li');
+  listItem.innerText = bandNames[i];
+  bandList.appendChild(listItem);
+}
+			
